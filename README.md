@@ -9,3 +9,5 @@ Spec checklists, practice questions and Spanish flashcards for the tests after O
 - Maths: Edexcel iGCSE 4MA1 Higher
 
 Progress saves in your browser on whichever device you use.
+
+Images in `img/` come from Wikimedia Commons under free licences (public domain, CC0, CC BY, CC BY-SA, GFDL). Each image's author and licence are shown beneath it on the site, linked to its Commons page. Diagrams in `figs.js` were drawn for this site.
