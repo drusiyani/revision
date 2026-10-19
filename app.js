@@ -84,7 +84,7 @@ function notesBlock(sub, si){
   if(!n) return "";
   const links = n.links && n.links.length ? `<p class="srcs">Practise more: ${n.links.map(([t,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(", ")}</p>` : "";
   const notes = `<button class="qtoggle" data-qt>${sub.id==="dt" ? "What band 4 needs" : "Notes"}</button>
-  <div class="qs notes">${imgs(sub.id, si)}${(n.figs||[]).map(f => `<figure>${FIGS[f]}</figure>`).join("")}${n.html}${links}</div>`;
+  <div class="qs notes">${imgs(sub.id, si)}${(n.figs||[]).map(f => `<figure class="zoomable">${FIGS[f]}<span class="zhint">Tap the diagram to enlarge</span>${(typeof FIGNOTES!=="undefined"&&FIGNOTES[f]) ? `<ul class="annot fig">${FIGNOTES[f].split("|").map(t=>`<li>${esc(t)}</li>`).join("")}</ul>` : ""}</figure>`).join("")}${n.html}${links}</div>`;
   if(!n.exam.length) return notes;
   const full = n.exam.filter((_,i) => S.ex[`${sub.id}|${si}|${i}`]===1).length;
   return notes + `
@@ -127,6 +127,8 @@ function subject(id){
     </section>`;}).join("")}`;
 
   app.onclick = e => {
+    const fz = e.target.closest("figure.zoomable");
+    if(fz && !e.target.closest("a")){ fz.classList.toggle("zoom"); return; }
     const dot = e.target.closest(".dot");
     if(dot){
       const k = sub.id+"|"+dot.dataset.code;
