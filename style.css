@@ -143,3 +143,8 @@ figure svg{width:100%;min-width:600px;height:auto;display:block}
 .g9tag{display:inline-block;background:var(--purple);color:#000;font-weight:700;font-size:13px;padding:2px 8px;margin-bottom:8px}
 
 figure svg[data-narrow]{min-width:0;max-width:420px;margin:0 auto}
+figure.photo{background:#fff;padding:0;border:1px solid var(--line)}
+figure.photo img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;background:#fff}
+figure.photo figcaption{background:var(--panel);color:var(--text);font-size:14px;padding:8px 12px;border-top:1px solid var(--line)}
+.credit{color:var(--muted)}
+.credit a{color:var(--muted)}
