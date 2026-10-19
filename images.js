@@ -114,7 +114,7 @@ const IMAGES = {
    {
     "src": "img/potometer.jpg",
     "cap": "A potometer for measuring water uptake",
-    "credit": "User Theresa knott on en.wikipedia",
+    "credit": "Theresa knott (numbers added)",
     "lic": "CC BY-SA 3.0",
     "page": "https://commons.wikimedia.org/wiki/File:Potometer.png"
    }
@@ -130,7 +130,7 @@ const IMAGES = {
    {
     "src": "img/red-white-blood-cells.jpg",
     "cap": "Red blood cells, a white blood cell and platelets (electron micrograph)",
-    "credit": "Electron Microscopy Facility at The National ",
+    "credit": "NCI Electron Microscopy Facility (numbers added)",
     "lic": "Public domain",
     "page": "https://commons.wikimedia.org/wiki/File:Red_White_Blood_cells.jpg"
    }
@@ -178,7 +178,7 @@ const IMAGES = {
    {
     "src": "img/placenta-system.jpg",
     "cap": "Fetus in the uterus with the placenta and amniotic sac",
-    "credit": "Wilfredor",
+    "credit": "Wilfredor (one label removed, numbers added)",
     "lic": "CC BY-SA 3.0",
     "page": "https://commons.wikimedia.org/wiki/File:Placenta_system.svg"
    }
