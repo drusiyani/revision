@@ -1,8 +1,8 @@
 const KEY = "revision:v1";
 const S = load();
 function load(){
-  try { return Object.assign({conf:{},qs:{},cards:{},imported:[],dir:"es",unit:"all"}, JSON.parse(localStorage.getItem(KEY)||"{}")); }
-  catch(e){ return {conf:{},qs:{},cards:{},imported:[],dir:"es",unit:"all"}; }
+  try { return Object.assign({conf:{},qs:{},ex:{},cards:{},imported:[],dir:"es",unit:"all"}, JSON.parse(localStorage.getItem(KEY)||"{}")); }
+  catch(e){ return {conf:{},qs:{},ex:{},cards:{},imported:[],dir:"es",unit:"all"}; }
 }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -71,6 +71,19 @@ function today(){
   </section>`;
 }
 
+function notesBlock(sub, si){
+  const n = (typeof NOTES !== "undefined" && NOTES[sub.id]) ? NOTES[sub.id][si] : null;
+  if(!n) return "";
+  const full = n.exam.filter((_,i) => S.ex[`${sub.id}|${si}|${i}`]===1).length;
+  return `<button class="qtoggle" data-qt>Notes</button>
+  <div class="qs notes">${(n.figs||[]).map(f => `<figure>${FIGS[f]}</figure>`).join("")}${n.html}
+    <p class="srcs">Practise more: ${n.links.map(([t,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(" or ")}</p></div>
+  <button class="qtoggle" data-qt data-et>Exam questions (${full}/${n.exam.length} full marks)</button>
+  <div class="qs">${n.exam.map(([q,m,ms],xi) => { const r = S.ex[`${sub.id}|${si}|${xi}`];
+    return `<div class="q ex ${r===1?"right":r===-1?"wrong":""}" data-xi="${xi}"><p>${esc(q.trim())} <span class="marks">[${m} mark${m>1?"s":""}]</span></p><div class="ans">${esc(ms)}</div><div class="qbtns"><button class="btn ghost" data-exshow>Show mark scheme</button></div></div>`; }).join("")}
+    <p class="note">Written in past-paper style. For real past paper questions use the PMT link in the notes.</p></div>`;
+}
+
 /* ---------- subject ---------- */
 function subject(id){
   const sub = SUBJECTS.find(s => s.id === id);
@@ -92,7 +105,8 @@ function subject(id){
         const v = S.conf[sub.id+"|"+c]||0;
         return `<li><button class="dot" data-code="${esc(c)}" data-v="${v}" aria-label="Confidence for ${esc(c)}"></button><div><span class="code">${esc(c)}</span>${esc(t)}</div></li>`;
       }).join("")}</ul>
-      <button class="qtoggle" data-qt>Questions (${right}/${sec.qs.length} right)</button>
+      ${notesBlock(sub, si)}
+      <button class="qtoggle" data-qt>Quick questions (${right}/${sec.qs.length} right)</button>
       <div class="qs">${sec.qs.map(([q,a],qi) => {
         const r = S.qs[`${sub.id}|${si}|${qi}`];
         return `<div class="q ${r===1?"right":r===-1?"wrong":""}" data-qi="${qi}">
@@ -116,7 +130,20 @@ function subject(id){
       return;
     }
     if(e.target.matches("[data-qt]")){ e.target.nextElementSibling.classList.toggle("open"); return; }
-    const qEl = e.target.closest(".q"); if(!qEl) return;
+    const exEl = e.target.closest(".ex");
+    if(exEl){
+      const secEl = exEl.closest(".sec"), si = +secEl.dataset.si, xi = +exEl.dataset.xi, k = `${sub.id}|${si}|${xi}`;
+      if(e.target.matches("[data-exshow]")){ exEl.classList.add("show"); exEl.querySelector(".qbtns").innerHTML = `<button class="btn" data-exmark="1">Full marks</button><button class="btn ghost" data-exmark="-1">Dropped marks</button>`; }
+      else if(e.target.dataset.exmark){
+        S.ex[k] = +e.target.dataset.exmark; save();
+        exEl.classList.remove("right","wrong","show"); exEl.classList.add(S.ex[k]===1?"right":"wrong");
+        exEl.querySelector(".qbtns").innerHTML = `<button class="btn ghost" data-exshow>Show mark scheme</button>`;
+        const ex = NOTES[sub.id][si].exam, full = ex.filter((_,i) => S.ex[`${sub.id}|${si}|${i}`]===1).length;
+        secEl.querySelector("[data-et]").textContent = `Exam questions (${full}/${ex.length} full marks)`;
+      }
+      return;
+    }
+    const qEl = e.target.closest(".q:not(.ex)"); if(!qEl) return;
     const secEl = qEl.closest(".sec"), si = +secEl.dataset.si, qi = +qEl.dataset.qi, k = `${sub.id}|${si}|${qi}`;
     if(e.target.matches("[data-show]")){
       qEl.classList.add("show");
@@ -126,7 +153,7 @@ function subject(id){
       qEl.classList.remove("right","wrong","show"); qEl.classList.add(S.qs[k]===1?"right":"wrong");
       qEl.querySelector(".qbtns").innerHTML = `<button class="btn ghost" data-show>Show answer</button>`;
       const sec = sub.sections[si], right = sec.qs.filter((_,i) => S.qs[`${sub.id}|${si}|${i}`]===1).length;
-      secEl.querySelector("[data-qt]").textContent = `Questions (${right}/${sec.qs.length} right)`;
+      secEl.querySelector("[data-qt]").textContent = `Quick questions (${right}/${sec.qs.length} right)`;
     }
   };
 }
