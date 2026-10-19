@@ -71,12 +71,16 @@ function today(){
   </section>`;
 }
 
+function imgs(id, si){
+  const list = (typeof IMAGES !== "undefined" && IMAGES[id] && IMAGES[id][String(si)]) || [];
+  return list.map(i => `<figure class="photo"><img src="${i.src}" alt="${esc(i.cap)}" loading="lazy"><figcaption>${esc(i.cap)}. <span class="credit">Image: <a href="${i.page}" target="_blank" rel="noopener">${esc(i.credit)}</a>, ${esc(i.lic)}</span></figcaption></figure>`).join("");
+}
 function notesBlock(sub, si){
   const n = (typeof NOTES !== "undefined" && NOTES[sub.id]) ? NOTES[sub.id][si] : null;
   if(!n) return "";
   const links = n.links && n.links.length ? `<p class="srcs">Practise more: ${n.links.map(([t,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(", ")}</p>` : "";
   const notes = `<button class="qtoggle" data-qt>${sub.id==="dt" ? "What band 4 needs" : "Notes"}</button>
-  <div class="qs notes">${(n.figs||[]).map(f => `<figure>${FIGS[f]}</figure>`).join("")}${n.html}${links}</div>`;
+  <div class="qs notes">${imgs(sub.id, si)}${(n.figs||[]).map(f => `<figure>${FIGS[f]}</figure>`).join("")}${n.html}${links}</div>`;
   if(!n.exam.length) return notes;
   const full = n.exam.filter((_,i) => S.ex[`${sub.id}|${si}|${i}`]===1).length;
   return notes + `
