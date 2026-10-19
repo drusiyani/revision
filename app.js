@@ -74,14 +74,16 @@ function today(){
 function notesBlock(sub, si){
   const n = (typeof NOTES !== "undefined" && NOTES[sub.id]) ? NOTES[sub.id][si] : null;
   if(!n) return "";
+  const links = n.links && n.links.length ? `<p class="srcs">Practise more: ${n.links.map(([t,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(", ")}</p>` : "";
+  const notes = `<button class="qtoggle" data-qt>${sub.id==="dt" ? "What band 4 needs" : "Notes"}</button>
+  <div class="qs notes">${(n.figs||[]).map(f => `<figure>${FIGS[f]}</figure>`).join("")}${n.html}${links}</div>`;
+  if(!n.exam.length) return notes;
   const full = n.exam.filter((_,i) => S.ex[`${sub.id}|${si}|${i}`]===1).length;
-  return `<button class="qtoggle" data-qt>Notes</button>
-  <div class="qs notes">${(n.figs||[]).map(f => `<figure>${FIGS[f]}</figure>`).join("")}${n.html}
-    <p class="srcs">Practise more: ${n.links.map(([t,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(" or ")}</p></div>
+  return notes + `
   <button class="qtoggle" data-qt data-et>Exam questions (${full}/${n.exam.length} full marks)</button>
-  <div class="qs">${n.exam.map(([q,m,ms],xi) => { const r = S.ex[`${sub.id}|${si}|${xi}`];
-    return `<div class="q ex ${r===1?"right":r===-1?"wrong":""}" data-xi="${xi}"><p>${esc(q.trim())} <span class="marks">[${m} mark${m>1?"s":""}]</span></p><div class="ans">${esc(ms)}</div><div class="qbtns"><button class="btn ghost" data-exshow>Show mark scheme</button></div></div>`; }).join("")}
-    <p class="note">Written in past-paper style. For real past paper questions use the PMT link in the notes.</p></div>`;
+  <div class="qs">${n.exam.map(([q,m,ms,g9],xi) => { const r = S.ex[`${sub.id}|${si}|${xi}`];
+    return `<div class="q ex ${g9?"g9":""} ${r===1?"right":r===-1?"wrong":""}" data-xi="${xi}">${g9?`<span class="g9tag">Grade 9</span>`:""}<p class="qtext">${esc(q.trim())} <span class="marks">[${m} mark${m>1?"s":""}]</span></p><div class="ans ${sub.id==="cs"?"mono":""}">${esc(ms)}</div><div class="qbtns"><button class="btn ghost" data-exshow>Show ${sub.id==="maths"?"solution":"mark scheme"}</button></div></div>`; }).join("")}
+    <p class="note">${sub.id==="maths" ? "Written in Edexcel style with worked solutions. The PMT links in the notes are real Edexcel iGCSE past paper questions with mark schemes." : "Written in past-paper style. For real past paper questions use the PMT link in the notes."}</p></div>`;
 }
 
 /* ---------- subject ---------- */
@@ -137,7 +139,7 @@ function subject(id){
       else if(e.target.dataset.exmark){
         S.ex[k] = +e.target.dataset.exmark; save();
         exEl.classList.remove("right","wrong","show"); exEl.classList.add(S.ex[k]===1?"right":"wrong");
-        exEl.querySelector(".qbtns").innerHTML = `<button class="btn ghost" data-exshow>Show mark scheme</button>`;
+        exEl.querySelector(".qbtns").innerHTML = `<button class="btn ghost" data-exshow>Show ${sub.id==="maths"?"solution":"mark scheme"}</button>`;
         const ex = NOTES[sub.id][si].exam, full = ex.filter((_,i) => S.ex[`${sub.id}|${si}|${i}`]===1).length;
         secEl.querySelector("[data-et]").textContent = `Exam questions (${full}/${ex.length} full marks)`;
       }
