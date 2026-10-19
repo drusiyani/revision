@@ -118,3 +118,18 @@ textarea{width:100%;min-height:140px;background:var(--panel);color:var(--text);b
 .shift{color:var(--purple);margin:4px 0 0;font-weight:500}
 .tip{color:var(--muted);font-size:15px;margin:12px 0 0}
 .extra{display:block;text-decoration:none;border-top:1px solid var(--line);padding:20px 0 0;margin-top:6px}
+
+/* notes */
+.qtoggle + .qtoggle, .qs + .qtoggle{margin-left:0}
+.sec .qtoggle{margin-right:8px}
+.notes{max-width:68ch;padding:4px 0 10px}
+.notes h3{font-size:18px;margin:22px 0 6px;color:var(--purple)}
+.notes p{margin:6px 0}
+.notes ul{margin:6px 0;padding-left:20px}
+.notes li{margin:5px 0}
+.notes b{font-weight:700;color:#fff}
+figure{margin:14px 0;background:var(--panel);border:1px solid var(--line);padding:12px;overflow-x:auto}
+figure svg{width:100%;min-width:600px;height:auto;display:block}
+.srcs{margin-top:18px!important;color:var(--muted);font-size:15px}
+.srcs a{color:var(--purple)}
+.marks{color:var(--muted);font-size:14px;white-space:nowrap}
