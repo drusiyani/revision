@@ -148,3 +148,11 @@ figure.photo img{display:block;width:100%;height:auto;max-height:520px;object-fi
 figure.photo figcaption{background:var(--panel);color:var(--text);font-size:14px;padding:8px 12px;border-top:1px solid var(--line)}
 .credit{color:var(--muted)}
 .credit a{color:var(--muted)}
+.imgwrap{position:relative;background:#fff;max-width:fit-content;margin:0 auto}
+.imgwrap img{max-height:520px;width:auto;max-width:100%;margin:0 auto}
+.pin{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:var(--purple);color:#000;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;border:2px solid #000}
+figure.photo figcaption b{color:#fff}
+.annot{margin:8px 0 8px;padding-left:18px}
+.annot li{margin:4px 0;font-size:15px}
+.credit{display:block;font-size:13px}
+.mask{position:absolute;background:#fff}
