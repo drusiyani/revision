@@ -66,3 +66,24 @@ ${T_(320,45,"tertiary consumer","middle")}${T_(320,85,"secondary consumer","midd
 ${T_(320,205,"~10% of energy passes up each level; the rest is lost, mainly as heat from respiration","middle")}
 </svg>`
 };
+FIGS.electro = `<svg viewBox="0 0 680 280" role="img" aria-label="Electrolysis cell with ions moving to electrodes">
+<line x1="200" y1="30" x2="480" y2="30" stroke="var(--text)" stroke-width="2"/>
+<line x1="200" y1="30" x2="200" y2="200" stroke="var(--text)" stroke-width="2"/><line x1="480" y1="30" x2="480" y2="200" stroke="var(--text)" stroke-width="2"/>
+<line x1="325" y1="18" x2="325" y2="42" stroke="var(--text)" stroke-width="3"/><line x1="340" y1="22" x2="340" y2="38" stroke="var(--text)" stroke-width="3"/>
+${T_(340,62,"d.c. supply","middle")}${T_(318,14,"+","middle")}${T_(348,14,"−","middle")}
+<path d="M140 110 L140 260 L540 260 L540 110" ${S_}/>
+<rect x="140" y="140" width="400" height="120" fill="var(--track)"/>
+<rect x="188" y="100" width="24" height="140" fill="var(--purple-deep)" stroke="var(--purple)"/><rect x="468" y="100" width="24" height="140" fill="var(--purple-deep)" stroke="var(--purple)"/>
+${T_(200,92,"anode (+)","middle")}${T_(480,92,"cathode (−)","middle")}
+${T_(300,185,"Cl⁻  ←","middle")}${T_(390,215,"→  Na⁺ / H⁺","middle")}
+${T_(30,170,"anions move")}${T_(30,186,"to the anode,")}${T_(30,202,"lose electrons")}${T_(30,218,"(oxidation)")}
+${T_(560,170,"cations move")}${T_(560,186,"to the cathode,")}${T_(560,202,"gain electrons")}${T_(560,218,"(reduction)")}
+</svg>`;
+FIGS.gates = `<svg data-narrow viewBox="0 0 360 340" role="img" aria-label="Symbols for NOT, AND, OR, NAND, NOR and XOR gates">
+<g transform="translate(30,15)"><path d="M10 10 L10 70 L60 40 Z" ${S_}/><circle cx="66" cy="40" r="6" ${S_}/><line x1="-10" y1="40" x2="10" y2="40" stroke="var(--text)"/><line x1="72" y1="40" x2="95" y2="40" stroke="var(--text)"/>${T_(45,95,"NOT","middle")}</g>
+<g transform="translate(220,15)"><path d="M10 10 L40 10 A30 30 0 0 1 40 70 L10 70 Z" ${S_}/><line x1="-10" y1="25" x2="10" y2="25" stroke="var(--text)"/><line x1="-10" y1="55" x2="10" y2="55" stroke="var(--text)"/><line x1="70" y1="40" x2="95" y2="40" stroke="var(--text)"/>${T_(40,95,"AND","middle")}</g>
+<g transform="translate(30,120)"><path d="M5 10 Q60 10 80 40 Q60 70 5 70 Q25 40 5 10 Z" ${S_}/><line x1="-10" y1="25" x2="13" y2="25" stroke="var(--text)"/><line x1="-10" y1="55" x2="13" y2="55" stroke="var(--text)"/><line x1="80" y1="40" x2="100" y2="40" stroke="var(--text)"/>${T_(45,95,"OR","middle")}</g>
+<g transform="translate(220,120)"><path d="M10 10 L40 10 A30 30 0 0 1 40 70 L10 70 Z" ${S_}/><circle cx="76" cy="40" r="6" ${S_}/><line x1="-10" y1="25" x2="10" y2="25" stroke="var(--text)"/><line x1="-10" y1="55" x2="10" y2="55" stroke="var(--text)"/><line x1="82" y1="40" x2="100" y2="40" stroke="var(--text)"/>${T_(45,95,"NAND","middle")}</g>
+<g transform="translate(30,225)"><path d="M5 10 Q60 10 80 40 Q60 70 5 70 Q25 40 5 10 Z" ${S_}/><circle cx="86" cy="40" r="6" ${S_}/><line x1="-10" y1="25" x2="13" y2="25" stroke="var(--text)"/><line x1="-10" y1="55" x2="13" y2="55" stroke="var(--text)"/><line x1="92" y1="40" x2="110" y2="40" stroke="var(--text)"/>${T_(45,95,"NOR","middle")}</g>
+<g transform="translate(220,225)"><path d="M12 10 Q67 10 87 40 Q67 70 12 70 Q32 40 12 10 Z" ${S_}/><path d="M2 10 Q22 40 2 70" ${S_}/><line x1="-10" y1="25" x2="15" y2="25" stroke="var(--text)"/><line x1="-10" y1="55" x2="15" y2="55" stroke="var(--text)"/><line x1="87" y1="40" x2="105" y2="40" stroke="var(--text)"/>${T_(50,95,"XOR","middle")}</g>
+</svg>`;
