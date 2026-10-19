@@ -73,7 +73,11 @@ function today(){
 
 function imgs(id, si){
   const list = (typeof IMAGES !== "undefined" && IMAGES[id] && IMAGES[id][String(si)]) || [];
-  return list.map(i => `<figure class="photo"><img src="${i.src}" alt="${esc(i.cap)}" loading="lazy"><figcaption>${esc(i.cap)}. <span class="credit">Image: <a href="${i.page}" target="_blank" rel="noopener">${esc(i.credit)}</a>, ${esc(i.lic)}</span></figcaption></figure>`).join("");
+  return list.map(i => { const a = (typeof ANNOT !== "undefined" && ANNOT[i.src]) || {};
+    const mask = a.mask ? `<span class="mask" style="left:${a.mask[0]}%;top:${a.mask[1]}%;width:${a.mask[2]}%;height:${a.mask[3]}%"></span>` : "";
+    const pins = (a.pins||[]).map(([x,y,l]) => `<span class="pin" style="left:${x}%;top:${y}%">${l}</span>`).join("");
+    const notes = (a.notes||[]).length ? `<ul class="annot">${a.notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul>` : "";
+    return `<figure class="photo"><div class="imgwrap"><img src="${i.src}" alt="${esc(i.cap)}" loading="lazy">${mask}${pins}</div><figcaption><b>${esc(i.cap)}</b>${notes}<span class="credit">Image: <a href="${i.page}" target="_blank" rel="noopener">${esc(i.credit)}</a>, ${esc(i.lic)}</span></figcaption></figure>`; }).join("");
 }
 function notesBlock(sub, si){
   const n = (typeof NOTES !== "undefined" && NOTES[sub.id]) ? NOTES[sub.id][si] : null;
