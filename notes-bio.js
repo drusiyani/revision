@@ -508,3 +508,22 @@ exam:[
 ["Explain why fish deaths from eutrophication are more common in summer than winter.",3,"More light and warmth, so algae grow faster (1). Bacteria respire faster at higher temperature, using oxygen faster (1). Warm water holds less dissolved oxygen (1)."],
 ["The pH probe in a fermenter growing a fungus breaks. Explain how this could reduce the yield.",4,"CO₂ from respiration dissolves and lowers the pH (1). No probe, so acid/alkali isn't added to correct it (1). Fungus's enzymes move away from their optimum / denature (1). Slower respiration and growth, so less product (1)."]
 ].forEach((q,i) => NOTES.bio[i].exam.push([q[0],q[1],q[2],true]));
+
+// GCSE-style diagrams for each section
+NOTES.bio[0].figs = ["bacteria"];
+NOTES.bio[1].figs = ["cells"];
+NOTES.bio[2].figs = ["lockkey", "enzyme"];
+NOTES.bio[3].figs = ["osmosis"];
+NOTES.bio[4].figs = ["leaf", "light"];
+NOTES.bio[5].figs = ["digest", "villus"];
+NOTES.bio[6].figs = ["seeds"];
+NOTES.bio[7].figs = ["stomata"];
+NOTES.bio[8].figs = ["thorax", "alveolus"];
+NOTES.bio[9].figs = ["roothair", "potometer"];
+NOTES.bio[10].figs = ["heart", "vessels"];
+NOTES.bio[11].figs = ["urinary", "nephron"];
+NOTES.bio[12].figs = ["skin"];
+NOTES.bio[13].figs = ["flower", "mcycle", "placenta"];
+NOTES.bio[14].figs = ["foodweb", "pyramid", "carbon", "nitrogen"];
+NOTES.bio[15].figs = ["greenhouse", "eutro"];
+NOTES.bio[16].figs = ["fermenter"];
