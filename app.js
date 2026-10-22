@@ -79,6 +79,20 @@ function imgs(id, si){
     const notes = (a.notes||[]).length ? `<ul class="annot">${a.notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul>` : "";
     return `<figure class="photo"><div class="imgwrap"><img src="${i.src}" alt="${esc(i.cap)}" loading="lazy">${mask}${pins}</div><figcaption><b>${esc(i.cap)}</b>${notes}<span class="credit">Image: <a href="${i.page}" target="_blank" rel="noopener">${esc(i.credit)}</a>, ${esc(i.lic)}</span></figcaption></figure>`; }).join("");
 }
+const PG = {
+  cs: ["https://papergrinder.com/practice/topical/cie-igcse-computer-science-0478?p=2&y=2023-2026&t=8",
+       "https://papergrinder.com/practice/topical/cie-igcse-computer-science-0478?p=2&y=2023-2026&t=8",
+       "https://papergrinder.com/practice/topical/cie-igcse-computer-science-0478?p=2&y=2023-2026&t=7,8",
+       "https://papergrinder.com/practice/topical/cie-igcse-computer-science-0478?p=2&y=2023-2026&t=10",
+       "https://papergrinder.com/practice/topical/cie-igcse-computer-science-0478?p=2&y=2023-2026&t=9"],
+  chem: ["https://papergrinder.com/practice/topical/cie-igcse-chemistry-0620?p=4&y=2023-2026&t=4"]
+};
+function pgLink(id, si){
+  const u = PG[id] && PG[id][si]; if(!u) return "";
+  const note = id==="cs" ? "Real Cambridge Paper 2 questions on this topic, 2023 onwards. 0478 and 0984 use the same papers."
+                         : "Real Cambridge 0620 electrochemistry questions. Most match your Edexcel spec; skip anything on fuel cells or electroplating.";
+  return `<a class="pglink" href="${u}" target="_blank" rel="noopener">Practise real past paper questions on PaperGrinder</a><p class="note">${note}</p>`;
+}
 function notesBlock(sub, si){
   const n = (typeof NOTES !== "undefined" && NOTES[sub.id]) ? NOTES[sub.id][si] : null;
   if(!n) return "";
@@ -91,6 +105,7 @@ function notesBlock(sub, si){
   <button class="qtoggle" data-qt data-et>Exam questions (${full}/${n.exam.length} full marks)</button>
   <div class="qs">${n.exam.map(([q,m,ms,g9],xi) => { const r = S.ex[`${sub.id}|${si}|${xi}`];
     return `<div class="q ex ${g9?"g9":""} ${r===1?"right":r===-1?"wrong":""}" data-xi="${xi}">${g9?`<span class="g9tag">Grade 9</span>`:""}<p class="qtext">${esc(q.trim())} <span class="marks">[${m} mark${m>1?"s":""}]</span></p><div class="ans ${sub.id==="cs"?"mono":""}">${esc(ms)}</div><div class="qbtns"><button class="btn ghost" data-exshow>Show ${sub.id==="maths"?"solution":"mark scheme"}</button></div></div>`; }).join("")}
+    ${pgLink(sub.id, si)}
     <p class="note">${sub.id==="maths" ? "Written in Edexcel style with worked solutions. The PMT links in the notes are real Edexcel iGCSE past paper questions with mark schemes." : "Written in past-paper style. For real past paper questions use the PMT link in the notes."}</p></div>`;
 }
 
